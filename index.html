@@ -566,13 +566,11 @@
     </div>
 
     <script>
-      // Function to update the progress bar
       function updateProgress(percent) {
         document.getElementById("progress-bar").style.width = percent + "%";
       }
 
-      // Simulate loading over 5 seconds
-      let loadingTime = 5000; // 5 seconds
+      let loadingTime = 5000; 
       let startTime = Date.now();
 
       function updateProgressBar() {
@@ -581,18 +579,15 @@
 
         if (percent >= 100) {
           updateProgress(100);
-          // Redirect to drawing.html after loading completes
           setTimeout(function () {
             window.location.href = "./drawing.html";
-          }, 300); // A small delay to ensure the progress bar completes visually
+          }, 300); 
         } else {
           updateProgress(percent);
-          // Schedule the next update
           requestAnimationFrame(updateProgressBar);
         }
       }
 
-      // Start updating the progress bar
       updateProgressBar();
     </script>
   </body>
