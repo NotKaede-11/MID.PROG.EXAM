@@ -49,7 +49,7 @@ A creative and interactive web application that lets you draw colorful lines wit
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/interactive-line-drawing.git
+   git clone https://github.com/NotKaede-11/MID.PROG.EXAM
    ```
 2. Navigate to the project folder
 3. **Important**: Open `index.html` first - it contains a loading animation and will redirect to the drawing app automatically
