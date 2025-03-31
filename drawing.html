@@ -3,9 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Interactive Line Drawing</title>
+    <title>Draw-Er</title>
+    <link rel="icon" type="image/png" href="pencil.png" />
     <link rel="stylesheet" href="css/styles.css" />
-    <!-- Font Awesome for icons -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
@@ -100,7 +100,6 @@
       </div>
 
       <div class="button-group">
-        <!-- Traffic Light Drawing Status Indicator -->
         <div class="traffic-light">
           <div class="light-indicator green">
             <i class="fas fa-pencil-alt"></i>
@@ -120,9 +119,21 @@
     </div>
 
     <svg id="drawing-area">
-      <!-- Lines will be drawn here -->
     </svg>
 
     <script src="javascript/script.js"></script>
+    <div
+      class="credits"
+      style="
+        position: fixed;
+        bottom: 10px;
+        width: 100%;
+        text-align: center;
+        font-size: 12px;
+        color: #666;
+      "
+    >
+      <!--https://www.flaticon.com/free-icons/pencil-->
+    </div>
   </body>
 </html>

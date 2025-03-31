@@ -49,7 +49,7 @@ A creative and interactive web application that lets you draw colorful lines wit
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/interactive-line-drawing.git
+   git clone https://github.com/NotKaede-11/MID.PROG.EXAM
    ```
 2. Navigate to the project folder
 3. **Important**: Open `index.html` first - it contains a loading animation and will redirect to the drawing app automatically
@@ -104,6 +104,7 @@ This project is open source and available under the MIT License.
 
 - Loading animation by [Emmaline-ozi on UIverse.io](https://uiverse.io/Emmaline-ozi/angry-dragon-5)
 - Font Awesome for icons
+- [Pencil favicon by Freepik - Flaticon](https://www.flaticon.com/free-icons/pencil)
 
 ## Support
 
