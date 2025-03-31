@@ -1,0 +1,519 @@
+body {
+    margin: 0;
+    overflow: hidden;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+#drawing-area {
+    width: 100%;
+    height: 100vh;
+    background-color: white;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.05);
+    cursor: crosshair;
+    transition: background-color 0.3s ease;
+}
+
+.controls {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 16px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    max-width: 280px;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.controls:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.controls h3 {
+    margin-top: 0;
+    color: #333;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 8px;
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+button {
+    margin: 5px;
+    padding: 8px 12px;
+    cursor: pointer;
+    border: none;
+    border-radius: 6px;
+    background-color: #f8f9fa;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #333;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+}
+
+button:hover {
+    background-color: #e9ecef;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+}
+
+button:active {
+    transform: translateY(1px);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Traffic Light Indicator */
+.traffic-light {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+    position: relative;
+    padding-left: 40px; /* Space for the light */
+}
+
+.light-indicator {
+    position: absolute;
+    left: 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 16px;
+}
+
+.light-indicator::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    opacity: 0.3;
+    filter: blur(8px);
+    z-index: -1;
+    transition: all 0.3s ease;
+}
+
+.light-indicator.green {
+    background-color: #2e7d32;
+    border: 2px solid #1b5e20;
+}
+
+.light-indicator.green::before {
+    background-color: #4CAF50;
+    box-shadow: 0 0 15px #4CAF50;
+}
+
+.light-indicator.red {
+    background-color: #c62828;
+    border: 2px solid #b71c1c;
+}
+
+.light-indicator.red::before {
+    background-color: #f44336;
+    box-shadow: 0 0 15px #f44336;
+}
+
+.light-text {
+    font-weight: 600;
+    font-size: 1rem;
+    margin-left: 10px;
+}
+
+/* Update status-message styling */
+#status-message {
+    margin-top: 10px;
+    font-weight: 600;
+    padding: 6px 10px;
+    border-radius: 6px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.status-green {
+    color: #2e7d32;
+    background-color: rgba(46, 125, 50, 0.1);
+}
+
+.status-red {
+    color: #c62828;
+    background-color: rgba(198, 40, 40, 0.1);
+}
+
+/* Update toggle drawing button to better match traffic light theme */
+#toggleDrawing.red-light {
+    background-color: #c62828;
+    color: white;
+}
+
+#toggleDrawing.red-light:hover {
+    background-color: #b71c1c;
+}
+
+#toggleDrawing.green-light {
+    background-color: #2e7d32;
+    color: white;
+}
+
+#toggleDrawing.green-light:hover {
+    background-color: #1b5e20;
+}
+
+.button-group {
+    margin-top: 20px;
+    border-top: 2px solid #f0f0f0;
+    padding-top: 15px;
+}
+
+.button-group p small {
+    display: block;
+    text-align: center;
+    color: #6c757d;
+    margin: 8px 0;
+}
+
+#toggleDrawing {
+    background-color: #ff5252;
+    color: white;
+    font-weight: 600;
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+}
+
+#toggleDrawing:hover {
+    background-color: #ff1744;
+}
+
+#downloadButton {
+    background-color: #2e7d32;
+    color: white;
+    font-weight: 600;
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#downloadButton:hover {
+    background-color: #1b5e20;
+}
+
+#downloadButton i {
+    margin-right: 8px;
+    font-size: 1.1rem;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .controls {
+        max-width: calc(100% - 40px);
+        width: calc(100% - 40px);
+        bottom: 20px;
+        top: auto;
+        left: 20px;
+        right: 20px;
+    }
+}
+
+.color-schemes-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
+.color-scheme-btn {
+    flex-basis: calc(33.33% - 10px);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    color: white;
+    text-shadow: 0 0 4px rgba(0, 0, 0, 0.7);
+    margin: 3px;
+    padding: 8px 5px;
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+/* Active color scheme button style */
+.color-scheme-btn.active {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.2);
+    border: 2px solid white;
+    position: relative;
+}
+
+.color-scheme-btn.active::after {
+    content: '✓';
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: white;
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    color: #333;
+    font-weight: bold;
+}
+
+/* Color scheme button backgrounds */
+#colorScheme1 {
+    background: linear-gradient(to right, #FF0000, #FF7F00, #FFFF00, #00FF00, #0000FF, #4B0082, #9400D3);
+}
+
+#colorScheme2 {
+    background: linear-gradient(to right, #0077be, #0099cc, #00ace6, #33bbff, #66ccff, #99ddff);
+}
+
+#colorScheme3 {
+    background: linear-gradient(to right, #ff0000, #ff3300, #ff6600, #ff9900, #ffcc00, #ffff00);
+}
+
+#colorScheme4 {
+    background: linear-gradient(to right, #FFB6C1, #FFD700, #98FB98, #ADD8E6, #DDA0DD, #FFDAB9);
+}
+
+#colorScheme5 {
+    background: linear-gradient(to right, #FF00FF, #00FFFF, #FF0000, #FFFF00, #00FF00, #FE01B1);
+}
+
+#colorScheme6 {
+    background: linear-gradient(to right, #004B49, #00755E, #008F39, #7CAE7A, #26532B, #3F704D);
+}
+
+#colorScheme7 {
+    background: linear-gradient(to right, #F15BB5, #FEE440, #00BBF9, #00F5D4, #9B5DE5);
+}
+
+#colorScheme8 {
+    background: linear-gradient(to right, #000000, #333333, #666666, #999999, #CCCCCC, #FFFFFF);
+}
+
+#colorScheme9 {
+    background: linear-gradient(to right, #8D5524, #C68642, #E0AC69, #F1C27D, #FFDBAC, #5E2612);
+}
+
+.undo-redo-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.undo-redo-container button {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+}
+
+.undo-redo-container button i {
+    margin-right: 5px;
+}
+
+.undo-redo-container button:hover {
+    background-color: #e9ecef;
+}
+
+#clear {
+    width: 100%;
+    margin-top: 10px;
+    background-color: #dc3545;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 12px;
+    transition: background-color 0.2s ease;
+}
+
+#clear i {
+    margin-right: 8px;
+}
+
+#clear:hover {
+    background-color: #c82333;
+    transform: translateY(-2px);
+}
+
+.info-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.info-button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.95);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: #2196F3;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+}
+
+.info-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    background-color: #2196F3;
+    color: white;
+}
+
+.info-panel {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    background-color: rgba(255, 255, 255, 0.98);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    width: 300px;
+    display: none;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.info-panel.active {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+.info-content h3 {
+    margin-top: 0;
+    color: #333;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 8px;
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+.info-content ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.info-content li {
+    padding: 8px 0;
+    display: flex;
+    align-items: center;
+    color: #555;
+    font-size: 0.95rem;
+}
+
+.info-content li i {
+    width: 20px;
+    margin-right: 10px;
+    color: #2196F3;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    color: #666;
+    cursor: pointer;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+}
+
+.close-button:hover {
+    background-color: rgba(0,0,0,0.1);
+    color: #333;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.line-width-control {
+    margin: 15px 0;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.03);
+    border-radius: 6px;
+}
+
+.line-width-control label {
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+    font-weight: 500;
+}
+
+.width-slider {
+    width: 100%;
+    height: 6px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: #ddd;
+    border-radius: 3px;
+    outline: none;
+}
+
+.width-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    background: #2196F3;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.width-slider::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    background: #2196F3;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+}
+
+.width-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+    background: #1976D2;
+}
+
+.width-slider::-moz-range-thumb:hover {
+    transform: scale(1.1);
+    background: #1976D2;
+}

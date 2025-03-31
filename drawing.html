@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interactive Line Drawing</title>
+    <link rel="stylesheet" href="css/styles.css" />
+    <!-- Font Awesome for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="info-container">
+      <button id="infoButton" class="info-button" title="How to use">
+        <i class="fas fa-info-circle"></i>
+      </button>
+      <div id="infoPanel" class="info-panel">
+        <div class="info-content">
+          <h3>How to Use the Drawing App</h3>
+          <ul>
+            <li>
+              <i class="fas fa-mouse-pointer"></i> Click anywhere to start
+              drawing
+            </li>
+            <li>
+              <i class="fas fa-paint-brush"></i> Choose from 9 different color
+              schemes
+            </li>
+            <li>
+              <i class="fas fa-arrows-alt-v"></i> Adjust line thickness with the
+              slider
+            </li>
+            <li>
+              <i class="fas fa-undo"></i> Use Ctrl+Z to undo and Ctrl+Y to redo
+            </li>
+            <li><i class="fas fa-pause"></i> Press ESC to pause drawing</li>
+            <li>
+              <i class="fas fa-trash"></i> Use Delete Drawing to start over
+            </li>
+            <li>
+              <i class="fas fa-download"></i> Download your artwork anytime
+            </li>
+          </ul>
+          <button id="closeInfo" class="close-button">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="controls">
+      <div class="control-section">
+        <h3>Color Schemes</h3>
+        <div class="color-schemes-container">
+          <button id="colorScheme1" class="color-scheme-btn" title="Rainbow">
+            Rainbow
+          </button>
+          <button id="colorScheme2" class="color-scheme-btn" title="Ocean">
+            Ocean
+          </button>
+          <button id="colorScheme3" class="color-scheme-btn" title="Fire">
+            Fire
+          </button>
+          <button id="colorScheme4" class="color-scheme-btn" title="Pastel">
+            Pastel
+          </button>
+          <button id="colorScheme5" class="color-scheme-btn" title="Neon">
+            Neon
+          </button>
+          <button id="colorScheme6" class="color-scheme-btn" title="Forest">
+            Forest
+          </button>
+          <button id="colorScheme7" class="color-scheme-btn" title="Sunset">
+            Sunset
+          </button>
+          <button id="colorScheme8" class="color-scheme-btn" title="Grayscale">
+            Grayscale
+          </button>
+          <button id="colorScheme9" class="color-scheme-btn" title="Earth">
+            Earth
+          </button>
+        </div>
+
+        <div class="line-width-control">
+          <label for="lineWidth"
+            >Line Width: <span id="lineWidthValue">2</span></label
+          >
+          <input
+            type="range"
+            id="lineWidth"
+            min="1"
+            max="100"
+            value="2"
+            class="width-slider"
+          />
+        </div>
+
+        <button id="clear"><i class="fa fa-trash"></i> Delete Drawing</button>
+      </div>
+
+      <div class="button-group">
+        <!-- Traffic Light Drawing Status Indicator -->
+        <div class="traffic-light">
+          <div class="light-indicator green">
+            <i class="fas fa-pencil-alt"></i>
+          </div>
+          <div class="light-text">Drawing Mode: Active</div>
+        </div>
+
+        <button id="toggleDrawing" class="green-light">Stop Drawing</button>
+        <div id="status-message" class="status-green">
+          Click to start drawing
+        </div>
+        <br />
+        <button id="downloadButton">
+          <i class="fas fa-download"></i> Download Drawing
+        </button>
+      </div>
+    </div>
+
+    <svg id="drawing-area">
+      <!-- Lines will be drawn here -->
+    </svg>
+
+    <script src="javascript/script.js"></script>
+  </body>
+</html>
